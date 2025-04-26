@@ -1,19 +1,48 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch } from 'vue'
+
+let id = 0;
+const newTodo = ref('')
+const hideCompleted = ref(false)
+const todos = ref([
+  { id: id++, text: 'Learn HTML', done: true },
+  { id: id++, text: 'Learn JavaScript', done: true },
+  { id: id++, text: 'Learn Vue', done: false }
+])
+
+watch(todos, () => {
+  console.log('todos: ', todos.value);
+}, { deep: true });
+
+
+function addTodo() {
+  console.log("Add Todo: ",);
+  todos.value.push({ id: id++, text: newTodo.value, done: false })
+  newTodo.value = ''
+}
+
+function removeTodo(id: number) {
+  console.log('id: ', id);
+  todos.value = todos.value.filter(todo => todo.id !== id)
+}
+
 </script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="asdf"></HelloWorld>
+  <section class="flex flex-col">
+    <div>
+      <input v-model="newTodo" required placeholder="new todo">
+      <button @click="addTodo">Add Todo</button>
+    </div>
+    <div>
+      <ul>
+        <li v-for="todo in todos" :key="todo.id"> {{ todo.text }} <button @click="removeTodo(todo.id)">X</button>
+        </li>
+      </ul>
+    </div>
+  </section>
 </template>
-
 <style scoped>
 .logo {
   height: 6em;
@@ -21,9 +50,11 @@ import HelloWorld from './components/HelloWorld.vue'
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
