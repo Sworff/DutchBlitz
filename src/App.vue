@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import { ref, watch } from 'vue'
+import HelloWorld from './components/HelloWorld.vue';
+import axios from 'axios';
+import { ref, watch, onMounted } from 'vue';
 
 let id = 0;
 const newTodo = ref('')
@@ -10,6 +11,8 @@ const todos = ref([
   { id: id++, text: 'Learn JavaScript', done: true },
   { id: id++, text: 'Learn Vue', done: false }
 ])
+
+const msg = ref('')
 
 watch(todos, () => {
   console.log('todos: ', todos.value);
@@ -27,9 +30,18 @@ function removeTodo(id: number) {
   todos.value = todos.value.filter(todo => todo.id !== id)
 }
 
+onMounted(async () => {
+  try {
+    const response = await axios.get('https://localhost:44370/WeatherForecast');
+    msg.value = response.data;
+  } catch(error) {
+    msg.value = "An Error Occurred!"
+  }
+})
 </script>
+
 <template>
-  <HelloWorld msg="asdf"></HelloWorld>
+  <HelloWorld :msg></HelloWorld>
   <section class="flex flex-col">
     <div>
       <input v-model="newTodo" required placeholder="new todo">
