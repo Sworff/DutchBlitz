@@ -6,7 +6,7 @@ const title = ref('')
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://localhost:44370/DutchBlitz');
+    const response = await axios.get('https://localhost:44370/DutchBlitz/api/test');
     title.value = response.data;
   } catch(error) {
     title.value = "Multi!"

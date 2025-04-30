@@ -27,6 +27,11 @@ a:hover {
   color: #535bf2;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -42,7 +47,7 @@ body {
     font-size: var(--text-2xl);
   }
   h3 {
-    font-size: var(--text-xl`);
+    font-size: var(--text-xl);
   }
   h4 {
     font-size: var(--text-lg);
