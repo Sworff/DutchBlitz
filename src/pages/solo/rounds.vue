@@ -3,17 +3,12 @@ import Button from 'primevue/button';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import InputNumber from 'primevue/inputnumber';
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useSoloStore } from "../../stores/soloStore";
 
 const store = useSoloStore();
 
 const editingRows = ref([]);
-
-const roundText = computed(() => {
-  const round = store.rounds.length > 1 ? "Next Round" : "Start Round";
-  return round;
-});
 
 const onRowEditSave = (event: any) => {
   let { data } = event;
@@ -65,5 +60,5 @@ const onRowEditSave = (event: any) => {
     </DataTable>
   </div>
 
-  <Button aria-label="start-round" @click="store.startNextRound()">{{ roundText }}</Button>
+  <Button label="Start Round" aria-label="start-round" @click="store.startNextRound()"></Button>
 </template>

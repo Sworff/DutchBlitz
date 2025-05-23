@@ -58,7 +58,7 @@ const onCellEditComplete = (event: any) => {
         </Column>
       </DataTable>
 
-      <Button v-if="store.players.length < 8" aria-label="add-player" @click="store.addPlayer()">Add Player</Button>
+      <Button v-if="store.players.length < 8" label="Add Player" aria-label="add-player" @click="store.addPlayer()"></Button>
     </section>
 
     <section class="mt-15">

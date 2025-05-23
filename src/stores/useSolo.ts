@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import type { GameState, Player, Round } from "../types/types";
+import type { Player, Round } from "../types/types";
 
 export function useSolo() {
   const winningScore = ref(75);
@@ -31,18 +31,14 @@ export function useSolo() {
     },
   ]);
 
-  const gameState = ref<GameState>({
-    winningScore: winningScore.value,
-    players: players.value,
-    rounds: rounds.value,
-  });
-
   const leaderBoard = computed(() => {
     return players.value.sort((a, b) => b.totalScore - a.totalScore);
   });
 
+  let playerNumber = 3;
+
   function addPlayer() {
-    const id = players.value.length + 1;
+    const id = playerNumber++;
     players.value.push({
       id,
       name: `Player ${id}`,
@@ -105,7 +101,6 @@ export function useSolo() {
     winningScore,
     players,
     rounds,
-    gameState,
     leaderBoard,
     addPlayer,
     editPlayer,
